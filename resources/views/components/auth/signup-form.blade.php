@@ -17,7 +17,15 @@
     </x-auth.input>
     <x-auth.input>
         <x-icons.password></x-icons.password>
-        <input class="ml-2 h-10 w-full" type="password" id="password" name="password" placeholder="Password">
+        <input class="ml-2 h-10 w-full" type="password" name="password" placeholder="Password">
+    </x-auth.input>
+    <x-auth.input>
+        <x-icons.phone></x-icons.phone>
+        <input class="ml-2 h-10 w-full" type="tel"  name="phonenumber" placeholder="Phone number">
+    </x-auth.input>
+    <x-auth.input>
+        <x-icons.cake></x-icons.cake>
+        <input class="ml-2 h-10 w-full" type="date" name="birthday" placeholder="Your Birthday">
     </x-auth.input>
     <x-auth.button>
         <button class="w-full h-full" type="button">Sign Up</button>

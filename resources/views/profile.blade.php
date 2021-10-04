@@ -10,7 +10,7 @@
             <div class="p-5 text-xl">John Doe</div>
         </div>
     </div>
-    <div class="mb:mx-6 sm:mx-auto w-auto max-w-lg bg-white h-auto border border-indigo-600 rounded-2xl">
+    <div class="mb:mx-6 sm:mx-auto my-16 w-auto max-w-lg bg-white h-auto border border-indigo-600 rounded-2xl">
         <x-profile.info-card>
             <x-slot name="title">
                 Display name
@@ -28,6 +28,18 @@
                 Gender
             </x-slot>
             Unidentified
+        </x-profile.info-card>
+        <x-profile.info-card>
+            <x-slot name="title">
+                Phone Number
+            </x-slot>
+            0912345678
+        </x-profile.info-card>
+        <x-profile.info-card>
+            <x-slot name="title">
+                Email
+            </x-slot>
+            abc@gmail.com
         </x-profile.info-card>
     </div>
 </x-app-layout>
