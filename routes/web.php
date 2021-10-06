@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,6 @@ Route::get('/signup', function () {
 Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
+
+Route::get('/shop', [ShopController::class, 'Shop'])->name('shop');
+Route::get('/product', [ShopController::class, 'getProductPage'])->name('product');

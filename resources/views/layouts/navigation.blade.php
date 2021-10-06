@@ -5,7 +5,7 @@
         <div id="dropdown" class="mb:hidden mb:w-full md:flex md:justify-between md:w-auto">
             <div class="mb:flex-wrap mb:flex-row mb:flex mb:w-full mb:text-center md:text-left md:flex md:w-auto">
                 <x-navbar.nav-links :href="route('welcome')"> Home </x-navbar.nav-links>
-                <x-navbar.nav-links :href="route('welcome')"> Shop </x-navbar.nav-links>
+                <x-navbar.nav-links :href="route('shop')"> Shop </x-navbar.nav-links>
                 <x-navbar.nav-links :href="route('welcome')"> About Us </x-navbar.nav-links>
                 <x-navbar.nav-links :href="route('welcome')"> Contact </x-navbar.nav-links>   
             </div>
