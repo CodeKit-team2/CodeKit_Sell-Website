@@ -14,12 +14,18 @@
             </div>
             <div class="mb:w-full xl:w-1/2 p-5">
                 {{-- Thông tin sản phẩm --}}
-                <x-shop.single-prodInfo></x-shop.single-prodInfo>
-                {{-- Phần chọn mua của khách --}}
+                @foreach ($item as $v)
+                    {{-- <x-shop.single-prodInfo></x-shop.single-prodInfo> --}}
+                    <p class="mb:hidden xl:block font-bold uppercase">{{$v->p_name}}</p>
+                    <p class="p-3 xl:p-6 text-xl font-light">{{$v->p_discrible}}</p>
+                    <hr>
+                    <p class="p-3 xl:p-6 font-bold text-xl text-indigo-600">{{$v->p_prices}}</p>
+                    {{-- Phần chọn mua của khách --}}
+                @endforeach
                 <x-shop.order></x-shop.order>
             </div>
         </div>
         {{-- Phần gợi ý sản phẩm --}}
-        <x-shop.suggest></x-shop.suggest>
+        {{-- <x-shop.suggest></x-shop.suggest> --}}
     </div>
 </x-app-layout>

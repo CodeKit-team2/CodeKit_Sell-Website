@@ -31,5 +31,5 @@ Route::get('/profile', function () {
 })->name('profile');
 
 Route::get('/shop', [ShopController::class, 'Shop'])->name('shop');
-Route::get('/product/{$id}', [ShopController::class, 'getProductPage'])->name('product');
+Route::get('/product/{id}', [ShopController::class, 'getProduct'])->name('product');
 Route::post('/product', [ShopController::class, 'add_cart'])->name('add_cart');

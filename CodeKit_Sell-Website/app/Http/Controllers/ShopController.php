@@ -10,6 +10,8 @@ class ShopController extends Controller
     //---------------ADD_CART------------------
     public function add_cart(Request $request){
         $data = $request->all();
+        dd($data);
+        // Việc còn lại là add vào giỏ hàng
     }
 
     //--------Hiển thị sp---------------------//
@@ -18,8 +20,8 @@ class ShopController extends Controller
         $id = DB::table('products')->get();
         return view('shop',compact('id'));
     }
-    public function getProductPage($id) {
-        
-        return view('components.shop.product-page');
+    public function getProduct($id) {
+        $item = DB::table('products')->where('p_id',$id)->get();
+        return view('components.shop.product-page',compact('item'));
     }
 }
