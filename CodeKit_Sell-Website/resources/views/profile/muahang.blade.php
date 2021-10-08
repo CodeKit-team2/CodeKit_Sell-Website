@@ -194,9 +194,12 @@
                         <p>Giảm giá:</p>
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
-                            @isset($vous)
-                                <p>{{$vous}}</p>
-                            @endisset đ                    </div>
+                            @if (isset($vous))
+                                <p>{{$giamgia = $vous}}đ</p>
+                            @else
+                                <p>{{$giamgia = 0}}đ</p>
+                            @endif
+                    </div>
                     {{-- @endforeach --}}
                 </div>
 
@@ -205,7 +208,7 @@
                         <p>Tổng cộng:</p>
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
-                        <p class="text-xl text-red-600">{{ $tong = $tam_tinh + $vous + $phi_giao_hang}} đ</p>
+                        <p class="text-xl text-red-600">{{ $tong = $tam_tinh + $giamgia + $phi_giao_hang}} đ</p>
                     </div>
                 </div>
 

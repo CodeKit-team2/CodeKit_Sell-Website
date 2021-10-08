@@ -50,8 +50,4 @@ Route::post('/ship',[MyController::class ,'ship'])->name('ship');
 Route::post('/voucher',[MyController::class ,'vouchers'])->name('voucher');
 
 
-/* Route::get('/aa', function () {
-    $vou = DB::table('vouchers')->select('v_discount')->where('v_content','AXA')->get();
-    return view('profile/test', compact('vou'));
-})->name('aa');
- */
+Route::post('/chitiet/{v}',[MyController::class ,'del_product'])->name('del_product');

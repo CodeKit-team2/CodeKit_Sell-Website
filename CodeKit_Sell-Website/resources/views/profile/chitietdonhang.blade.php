@@ -47,7 +47,10 @@
                           </td>
                           <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-sm group-hover:visible">
                             <div class="">
-                              <a href="" class="no-underline text-blue"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted"></a> 
+                              <form action="{{route('del_product',$v->p_id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="no-underline text-blue"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted"></button> 
+                              </form>
                             </div>
                           </td>
                         </tr>

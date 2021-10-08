@@ -11,6 +11,15 @@ use App\Models\User;
 
 class MyController extends Controller
 {
+	//------------------Xoa product-----------------------------
+	public function del_product($v){
+        $del = DB::table('products')->where('p_id',$v)->delete();
+		$id = DB::table('products')->get();
+        return view('profile/chitietdonhang', compact('id'));
+    }
+
+
+
     public function lichsudonhang(){
         $users = DB::table('orders')->where('o_state',1)->get();
         return view('profile/lichsudonhang', compact('users'));
