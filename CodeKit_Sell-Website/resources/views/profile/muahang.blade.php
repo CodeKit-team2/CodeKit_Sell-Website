@@ -189,7 +189,7 @@
                         <p>Tạm tính:</p>
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
-                        <p>{{ $tam_tinh = 1000 }} đ</p>
+                        <p>{{ $tam_tinh = $sum }} đ</p>
                     </div>
                 </div>
 

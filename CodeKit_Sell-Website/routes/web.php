@@ -26,12 +26,13 @@ Route::get('/donhang',[MyController::class ,'donhang'])->name('donhang');
 
 
 Route::get('/chitiet', function () {
-    return view('profile/chitietdonhang');
+    $id = DB::table('products')->get();
+    return view('profile/chitietdonhang',compact('id'));
 })->name('chitiet');
 
-Route::get('/muahang', function () {
+Route::get('/muahang/{id}', function ($sum) {
     $thanhpho = DB::table('devvn_tinhthanhpho')->orderBy('matp','ASC')->get();
-    return view('profile/muahang',compact('thanhpho'));
+    return view('profile/muahang',compact('thanhpho','sum'));
 })->name('muahang');
 
 //------------------Xem dia chi thanh toan--------------------

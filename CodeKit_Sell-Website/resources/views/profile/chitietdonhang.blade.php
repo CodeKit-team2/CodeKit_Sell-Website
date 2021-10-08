@@ -23,36 +23,26 @@
                       <thead>
                         <tr>
                           <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">STT</th>
-                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">Mã sản phẩm</th>
                           <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">Tên sản phẩm</th>
+                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">Ảnh</th>
+                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">Giá</th>
                           <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light text-center">Số lượng</th>
                           <th class="text-sm uppercase font-semibold text-grey-darker p-3 bg-grey-light"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted"></th>
                         </tr>
                       </thead>
                       <tbody class="align-baseline">
-                        <tr class="group cursor-pointer hover:bg-grey-lightest h-10">
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap">1</td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap"><a href="" class="text-blue-600 pl-4">01010010</a></td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap pl-6">200.000</td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-center">
-                            <div class="buttons_added ">
-                              <input type="number" class=" text-center border-none" value="1" max="10" min="1">
-                            </div>
-                          </td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-sm">
-                            <div class="">
-                              <a href="" class="no-underline text-blue"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted"></a> 
-                            </div>
-                          </td>
-                        </tr>
-
+                        @foreach ($id as $v)
                         <tr class="group cursor-pointer hover:bg-grey-lightest">
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap">1</td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap"><a href="" class="text-blue-600 pl-4">01010010</a></td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap pl-6">200.000</td>
+                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap">{{$v->p_id}}</td>
+                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap">{{$v->p_name}}</td>
+                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap">{{$v->p_images}}</td>
+                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap pl-6">{{$v->p_prices}}</td>
                           <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-center">
                             <div class="buttons_added ">
-                              <input type="number" class=" text-center border-none" value="1" max="10" min="1">
+                              <form action="" method="POST">
+                                @csrf
+                                <input type="number" name="number" class=" text-center border-none" value="1" max="10" min="1">
+                              </form>
                             </div>
                           </td>
                           <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-sm group-hover:visible">
@@ -61,65 +51,34 @@
                             </div>
                           </td>
                         </tr>
-                          
+                        @endforeach
                       </tbody>
                     </table>
 
                     {{-- Tổng tiền --}}
 
                     <div class="bg-white w-1/4 ml-3 p-3">
-                      <div class="w-full my-4">
-                          <div class="flex">    
-                              <p class="text-xl mr-3">Mã giảm giá:</p>
-                              <i class="fa fa-ticket vouchers" style="font-size:25px;color:red"></i>
-                          </div>
-                          <form action="">
-                              <input type="text" placeholder="Nhập mã giảm giá" class="mt-3 boder border-solid border-2 w-2/3 h-10 pl-3 mr-3 input_vou rounded focus:outline-none focus:shadow-outline">
-                              <button type="submit" class="bg-blue-500 w-1/4 h-10 text-white rounded-md vouchers js-login-modal">Áp dụng</button>
-                          </form>
                       <div class="w-full">
-                          <p class="text-xl mb-4">Thông tin đơn hàng</p>
-                          <div class="flex p-1">
+                          <p class="text-xl mb-4">Thông tin đơn hàng</p>        
+
+          
+                          <div class="flex p-1  border-solid border-t-2 mb-10">
                               <div class="w-1/2">
                                   <p>Tạm tính:</p>
                               </div>
                               <div class="flex justify-end w-1/2 pr-5">
-                                  <p>{{ $tam_tinh = 1000 }} đ</p>
-                              </div>
-                          </div>
-          
-                          <div class="flex p-1">
-                              <div class="w-1/2">
-                                  <p>Phí giao hàng:</p>
-                              </div>
-                              <div class="flex justify-end w-1/2 pr-5">
-                                  <p>{{ $phi_giao_hang = 2000 }} đ</p>
-                              </div>
-                          </div>
-          
-                          <div class="flex p-1 mb-4">
-                              {{-- @foreach($vou as $c) --}}     
-                              
-                              <div class="w-1/2">
-                                  <p>Giảm giá:</p>
-                              </div>
-                              <div class="flex justify-end w-1/2 pr-5">
-                                  <p> {{ $ma_giam_gia= /* $c->v_discount */ 0 }}  đ</p>
-                              </div>
-                              {{-- @endforeach --}}
-                          </div>
-          
-                          <div class="flex p-1  border-solid border-t-2 mb-10">
-                              <div class="w-1/2">
-                                  <p>Tổng cộng:</p>
-                              </div>
-                              <div class="flex justify-end w-1/2 pr-5">
-                                  <p class="text-xl text-red-600">{{ $tong = $tam_tinh + $ma_giam_gia + $phi_giao_hang}} đ</p>
+                                  <?php
+                                    $sum = 0;
+                                    foreach ($id as $v) {
+                                      $sum = $sum + $v->p_prices;
+                                    }
+                                  ?>
+                                  <p class="text-xl text-red-600">{{$sum}} đ</p>
                               </div>
                           </div>
           
                           <div class="w-full">
-                              <a href="{{route('muahang')}}" class="w-full flex justify-center ">
+                              <a href="{{route('muahang', $sum)}}" class="w-full flex justify-center ">
                                   <button type="button" class="bg-red-400 rounded-md w-2/3 h-10 mt-4"><p class="text-white">Mua hàng</p></button>
                               </a>
                           </div>
