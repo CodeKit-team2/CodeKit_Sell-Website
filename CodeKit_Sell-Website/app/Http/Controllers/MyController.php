@@ -70,9 +70,24 @@ class MyController extends Controller
 
 	public function vouchers(Request $request){
     	$data = $request->all();
-		$fee = $data['vouchers'];
+		$fee = $data['voucher'];
 		$vou = DB::table('vouchers')->select('v_discount')->where('v_content',$fee)->get();
-		return view('profile/muahang',compact('vou'));	
+		$thanhpho = DB::table('devvn_tinhthanhpho')->orderBy('matp','ASC')->get();
+		$su = DB::table('products')->get();
+		$sum = 0;
+		foreach ($su as $su) {
+			$sum = $sum + $su->p_prices;
+		} 
+		foreach ($vou as $vous) {
+			$vous = $vous->v_discount;
+		} 
+		
+		if (isset($vous)) {
+			return view('profile/muahang',compact('vous','thanhpho','sum'));	
+		} else {
+			$vous = 0;
+			return view('profile/muahang',compact('vous','thanhpho','sum'));		
+		}
 	}
 
 

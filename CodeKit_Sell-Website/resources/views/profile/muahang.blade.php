@@ -57,24 +57,6 @@
                     }
                 });   
             }); 
-
-            $('.vouchers').click(function () { 
-                var vouchers = $('.input_vou').val();
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url : '{{route('vouc')}}',
-                    method: 'POST',
-                    data: {
-                        vouchers:vouchers,
-                        _token:_token
-                    },
-                    success:function(data){
-                        //alert('Thành công');
-                        console.log('Thành công');    
-                    }
-                });   
-                
-            });
         });
     </script>
     <title>Document</title>
@@ -179,8 +161,11 @@
                     <p class="text-xl mr-3">Mã giảm giá:</p>
                     <i class="fa fa-ticket vouchers" style="font-size:25px;color:red"></i>
                 </div>
-                    <input type="text" placeholder="Nhập mã giảm giá" class="mt-3 boder border-solid border-2 w-2/3 h-10 pl-3 mr-3 input_vou rounded focus:outline-none focus:shadow-outline">
-                <button type="button" class="bg-blue-500 w-1/4 h-10 text-white rounded-md vouchers js-login-modal">Áp dụng</button>
+                <form action="{{route('voucher')}}" method="POST">
+                    @csrf
+                    <input type="text" name="voucher" placeholder="Nhập mã giảm giá" class="mt-3 boder border-solid border-2 w-2/3 h-10 pl-3 mr-3 rounded focus:outline-none">
+                    <button type="submit" class="bg-blue-500 w-1/4 h-10 text-white rounded-md vouchers js-login-modal">Áp dụng</button>
+                </form>
             </div>
             <div class="w-full">
                 <p class="text-xl mb-4">Thông tin đơn hàng</p>
@@ -209,8 +194,9 @@
                         <p>Giảm giá:</p>
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
-                        <p> {{ $ma_giam_gia= /* $c->v_discount */ 0 }}  đ</p>
-                    </div>
+                            @isset($vous)
+                                <p>{{$vous}}</p>
+                            @endisset đ                    </div>
                     {{-- @endforeach --}}
                 </div>
 
@@ -219,7 +205,7 @@
                         <p>Tổng cộng:</p>
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
-                        <p class="text-xl text-red-600">{{ $tong = $tam_tinh + $ma_giam_gia + $phi_giao_hang}} đ</p>
+                        <p class="text-xl text-red-600">{{ $tong = $tam_tinh + $vous + $phi_giao_hang}} đ</p>
                     </div>
                 </div>
 
@@ -229,59 +215,6 @@
                     </a>
                 </div>
             </div>
-
-            {{-- VOuches --}}
-            {{-- <div class="">
-                <button type="button" class="js-login-modal">Đăng ký</span>
-                <div class="modal js-modal">
-                    <div class="modal-container js-modal-container">
-            
-                        <div class="modal-header">
-                            <i class="modal-header-icon fas fa-times js-close "></i>
-                            <p class="modal-header-text">
-                                Đăng nhập hoặc đăng ký
-                            </p>
-                        </div>
-                
-                        <div class="modal-content">
-                            <p class="modal-content-heading">Chào mừng bạn đến với  Airbnb</p> 
-                            <button class="modal-btn-end">
-                                Tiếp tục
-                            </button>
-                        </div>
-                    </div>
-                </div> 
-
-                <script>
-                    const loginsOpen = document.querySelectorAll('.js-login-modal')
-                    const modal =document.querySelector('.js-modal')
-                    const closeModal =document.querySelector('.js-close')
-            
-                    const modolContainer = document.querySelector('.js-modal-container')
-            
-                    function showModal (){
-                        modal.classList.add('open')
-                    }
-            
-                    function hideModal (){
-                        modal.classList.remove('open')
-                    }
-            
-                    for (const loginOpen of loginsOpen) {
-                        loginOpen.addEventListener('click',showModal)
-                    }
-            
-                     closeModal.addEventListener('click',hideModal)
-            
-                     modal.addEventListener('click', hideModal)
-            
-                    modolContainer.addEventListener('click',function (event){
-                        event.stopPropagation()
-                     })
-            
-                </script>
-            </div> --}}
-            
         </div>
     </div>
 </body>

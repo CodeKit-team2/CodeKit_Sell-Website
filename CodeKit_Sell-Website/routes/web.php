@@ -47,10 +47,11 @@ Route::post('/ship',[MyController::class ,'ship'])->name('ship');
 
 //------------------Vouchers--------------------
 
-Route::post('/vouchers',[MyController::class ,'vouchers'])->name('vouc');
+Route::post('/voucher',[MyController::class ,'vouchers'])->name('voucher');
 
 
-Route::get('/aa', function () {
+/* Route::get('/aa', function () {
     $vou = DB::table('vouchers')->select('v_discount')->where('v_content','AXA')->get();
     return view('profile/test', compact('vou'));
 })->name('aa');
+ */
