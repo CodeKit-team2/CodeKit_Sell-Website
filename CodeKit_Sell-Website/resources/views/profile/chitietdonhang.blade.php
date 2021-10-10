@@ -66,7 +66,7 @@
                             </div>
                           </td>
                           <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-sm group-hover:visible align-middle">
-                            <div onclick="alert('Bạn có muốn xóa sản phẩm ra giỏ hàng')" class="">
+                            <div onclick="if (!confirm('Bạn có muốn xóa ra giỏ hàng?')) { return false }" class="">
                               <form action="{{route('del_product',$v->p_id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="no-underline text-blue"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted"></button> 
