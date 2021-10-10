@@ -71,9 +71,14 @@ class MyController extends Controller
 			'maqh' => $maph,
 			'xaid' => $xaid
 		])->get(); */
-
-			// CHưa xong
-
+		/* $thanhpho = DB::table('devvn_tinhthanhpho')->orderBy('matp','ASC')->get();
+		$su = DB::table('products')->get();
+		$sum = 0;
+		foreach ($su as $su) {
+			$sum = $sum + $su->p_prices;
+		}
+		return view('profile/muahang',compact('thanhpho','sum')); */
+		
     }
 	//------------------------Vouchers-----------------------------------
 
