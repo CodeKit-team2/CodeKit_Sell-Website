@@ -90,21 +90,7 @@ class MyController extends Controller
 			'xa_id' => $xaid,
 			'name' => $name,
 			'phone' => $phone
-		]);
-
-		/* DB::table('ship')->insert([
-			'matp' => $matp,
-			'maqh' => $maph,
-			'xaid' => $xaid
-		])->get(); */
-		/* $thanhpho = DB::table('devvn_tinhthanhpho')->orderBy('matp','ASC')->get();
-		$su = DB::table('products')->get();
-		$sum = 0;
-		foreach ($su as $su) {
-			$sum = $sum + $su->p_prices;
-		}
-		return view('profile/muahang',compact('thanhpho','sum')); */
-		
+		]);	
     }
 	//------------------------Vouchers-----------------------------------
 
