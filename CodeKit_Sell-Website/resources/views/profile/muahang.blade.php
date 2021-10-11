@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{asset('css/notify.css')}}">
+    <script src="{{ URL::asset('js/notify.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.choose').on('change',function(){
@@ -59,21 +62,42 @@
                         _token:_token
                     },
                     success:function(data){
-                        alert('Thành công');    
+                        //alert('Thành công');    
                     }
-                    });  
+                    });
+                    //Notify  
+                    toast({
+                        title: "Thành công!",
+                        message: "Bạn đã lưu thành công địa chỉ.",
+                        type: "success",
+                        duration: 5000
+                    });
+
+                
+                } else {
+                    toast({
+                        title: "Thất bại!",
+                        message: "Có lỗi xảy ra, vui lòng kiểm tra lại thông tin.",
+                        type: "error",
+                        duration: 5000
+                    });
+
                 }
                    
-            }); 
+            });    
         });
     </script>
     <title>Document</title>
 </head>
-<body class="bg-gray-100 flex justify-center w-full pt-8">
+<body>
+    <div>
+        <div id="toast"></div>     
+    </div>
+<div class="bg-gray-100 flex justify-center w-full pt-8"> 
     <div class="flex justify-between w-5/6">
         <div class="flex bg-white w-2/3 rounded-md">
             <div>
-
+                
             </div>
             <div class="py-5 px-10 w-full">
                 <p class="text-xl mb-5">Thông tin giao hàng</p>
@@ -266,5 +290,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
