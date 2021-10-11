@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-{{--     <link rel="stylesheet" href="{{asset('css/vouchers.css')}}">
- --}}    <script type="text/javascript">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    <script type="text/javascript">
         $(document).ready(function(){
             $('.choose').on('change',function(){
                 var action = $(this).attr('id');
@@ -42,11 +42,17 @@
                 var city = $('.city').val();
                 var province = $('.province').val();
                 var wards = $('.wards').val();
+                var name = $('.name').val();
+                var phone = $('.phone').val();
                 var _token = $('input[name="_token"]').val();
-                $.ajax({
+                console.log(wards);
+                if (name.length>0 && phone.length>0 && wards.length>0) {
+                    $.ajax({
                     url : '{{route('ship')}}',
                     method: 'POST',
                     data: {
+                        name:name,
+                        phone:phone,
                         city:city,
                         province:province,
                         wards:wards,
@@ -55,7 +61,9 @@
                     success:function(data){
                         alert('Thành công');    
                     }
-                });   
+                    });  
+                }
+                   
             }); 
         });
     </script>
@@ -73,15 +81,19 @@
                     <div class="w-1/2">
                         <div class="w-full">
                             <p class="text-lg">Họ Tên:</p>
-                            <input type="text" placeholder="Họ tên" class="rounded h-10 w-full border-solid border-2 pl-3 mb-4 name focus:outline-none focus:shadow-outline" name="_name">
+                            <input type="text" placeholder="Họ tên" class="rounded h-10 w-full border-solid border-2 pl-3 mb-4 name focus:outline-none focus:shadow-outline" name="name_vali">
                         </div>
 
                         <div class="w-full">
                             <p class="text-lg">Số điện thoại:</p>
-                            <input type="text" placeholder="Số điện thoại của bạn" class="rounded h-10 w-full border-solid border-2 pl-3 mb-4 sdt focus:outline-none focus:shadow-outline" name="_sdt">
+                            <input type="number" placeholder="Số điện thoại của bạn" class="appearance-none rounded h-10 w-full border-solid border-2 pl-3 mb-4 phone focus:outline-none focus:shadow-outline" name="phone_vali" required>
+                            <style>
+                                input::-webkit-inner-spin-button {
+                                    -webkit-appearance: none;
+                                }
+                            </style>
                         </div>
                     </div>
-
                     <div class="w-1/2 ml-8">
                         <form action="" method="POST">
                             @csrf
@@ -127,9 +139,8 @@
                             </div>
                             
                             <div class="flex justify-end w-full ">
-                                <button type="button" class="rounded-md bg-blue-500 add_delivery w-1/2  h-11 text-xl text-white" name="add_delivery">Lưu</button>
+                                    <button type="button" id="success" class="rounded-md bg-blue-500 add_delivery w-1/2  h-11 text-xl text-white" name="add_delivery">Lưu</button>
                             </div>
-                            
                             <div>
 
                             </div>
@@ -147,12 +158,31 @@
             <div class="p-2">
                 <div class="pl-2">
                     <div class="flex mb-2">
-                        <input type="radio" name="diachi" value="congty" class="w-5 h-5 mt-1 mr-2" checked>
-                        <span class="text-lg">Thanh toán bằng thẻ</span>
+                        <div class="">
+                            <input type="radio" name="diachi" value="" class="w-4 h-4 mt-1 mr-2 align-middle" checked>
+                        </div>
+                        <div class="flex">
+                            <img class="method-icon mr-2 align-middle" width="25" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-cod.svg" alt="cod">
+                            <p class="text-lg"> Thanh toán khi nhận hàng</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-2">
+                        <div>
+                            <input type="radio" name="diachi" value="" class="w-4 h-4 mt-1 mr-2 align-middle">
+                        </div>
+                        <div class="flex">
+                            <img class="method-icon align-middle mr-2" width="24" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-mo-mo.svg" alt="momo">
+                            <p class="text-lg">Thanh toán bằng ví Momo</p>
+                        </div>
                     </div>
                     <div class="flex">
-                        <input type="radio" name="diachi" value="nharieng" class="w-5 h-5 mt-1 mr-2">
-                        <span class="text-lg">Thanh toán khi nhận hàng</span>
+                        <div>
+                            <input type="radio" name="diachi" value="" class="w-4 h-4 mt-1 mr-2 align-middle">
+                        </div>
+                        <div class="flex">
+                            <img class="method-icon align-middle" width="25" src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/checkout/icon-payment-method-zalo-pay.svg" alt="zalopay">                            
+                            <p class="text-lg">Thanh toán bằng ví Zalopay</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,7 +204,13 @@
                         <p>Tạm tính:</p>
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
-                        <p>{{ $tam_tinh = $sum }} đ</p>
+                        <p>
+                            <?php
+                                $tam_tinh = $sum;
+                                $try = number_format($sum, 0, ',', '.');
+                            ?>
+                            {{ $try}} đ
+                        </p>
                     </div>
                 </div>
 
@@ -195,9 +231,13 @@
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
                             @if (isset($vous))
-                                <p>{{$giamgia = $vous}}đ</p>
+                                <?php
+                                    $giamgia = $vous;
+                                    $try = number_format($vous, 0, ',', '.');
+                                ?>
+                                <p>{{$try}} đ</p>
                             @else
-                                <p>{{$giamgia = 0}}đ</p>
+                                <p>{{$giamgia = 0}} đ</p>
                             @endif
                     </div>
                     {{-- @endforeach --}}
@@ -208,7 +248,13 @@
                         <p>Tổng cộng:</p>
                     </div>
                     <div class="flex justify-end w-1/2 pr-5">
-                        <p class="text-xl text-red-600">{{ $tong = $tam_tinh + $giamgia + $phi_giao_hang}} đ</p>
+                        <p class="text-xl text-red-600">
+                            <?php
+                                $tong = $tam_tinh + $giamgia + $phi_giao_hang;
+                                $try = number_format($tong, 0, ',', '.');
+                            ?>
+                            {{ $try}} đ
+                        </p>
                     </div>
                 </div>
 

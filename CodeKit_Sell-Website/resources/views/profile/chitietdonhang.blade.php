@@ -8,26 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>Alo</title>
-    <script>
-        $(document).ready(function () {
-          //Chua xong
-          /* $('.soluong').click(function () { 
-            var soluong = $('.soluong').val();
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                    url : '{{url('chitiet')}}',
-                    method: 'POST',
-                    data: {
-                        soluong:soluong,
-                        _token:_token
-                    },
-                    success:function(data){
-                    }
-                });
-            
-          }); */
-        }); 
-    </script>
 </head>
 <body class="bg-gray-100">
     <div>
@@ -42,27 +22,34 @@
                     <table class="w-2/3 table-collapse bg-white h-80">
                       <thead>
                         <tr>
-                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">STT</th>
-                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">Tên sản phẩm</th>
-                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">Ảnh</th>
+                          <th class="text-sm text-left uppercase font-semibold text-grey-darker py-3 bg-grey-light pl-10">Ảnh</th>
+                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light">Tên sản phẩm </th>
                           <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light pl-8">Giá</th>
-                          <th class="text-sm text-left uppercase font-semibold text-grey-darker p-3 bg-grey-light text-center">Số lượng</th>
+                          <th class="text-sm text-left uppercase font-semibold text-grey-darker py-3 bg-grey-light">Số lượng</th>
                           <th class="text-sm uppercase font-semibold text-grey-darker p-3 bg-grey-light"><img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/trash.svg" alt="deleted"></th>
                         </tr>
                       </thead>
-                      <tbody class="align-baseline">
+                      <tbody class="">
                         @foreach ($id as $v)
-                        <tr class="group cursor-pointer hover:bg-grey-lightest">
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap align-middle">{{$v->p_id}}</td>
+                        <tr class="group cursor-pointer hover:bg-grey-lightest">                          
+                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap"><img height="100" width="100" src="{{url('images/products/'.$v->p_images)}}" alt="Image"></td>
                           <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap align-middle">{{$v->p_name}}</td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap">{{$v->p_images}}{{-- <img height="100" width="100" src="{{url('images/giay.jpg')}}" alt="Image"> --}}</td>
-                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap pl-6 align-middle">{{$v->p_prices}}</td>
+                          <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap pl-6 align-middle"><?php $a = number_format($v->p_prices, 0, ',', '.');?>{{$a}}</td>
                           <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-center align-middle">
-                            <div class="buttons_added align-middle">
-                              <form action="" method="POST">
-                                @csrf
-                                <input type="number" name="number" class="soluong text-lg text-center border-none focus:outline-none" value="1" max="10" min="1">
-                              </form>
+                            <div class="buttons_added flex">
+                              <div class="align-middle mr-3 content-center">
+                                <p class="text-xl pt-1">{{$v->p_quantity}}</p>
+                              </div>
+                              <div class="align-middle">
+                                <form action="{{route('increase',$v->p_id)}}" method="POST">
+                                  @csrf
+                                  <button type="submit"><img height="15" width="15" src="{{url('images/icons/icon.png')}}" alt=""></button>
+                                </form>
+                                <form action="{{route('decrease',$v->p_id)}}" method="POST">
+                                  @csrf
+                                  <button type="submit"><img height="15" width="15" src="{{url('images/icons/icon2.png')}}" alt=""></button>
+                                </form> 
+                              </div>
                             </div>
                           </td>
                           <td class="text-sm p-3 border-t border-grey-light whitespace-no-wrap text-sm group-hover:visible align-middle">
@@ -77,29 +64,38 @@
                         @endforeach
                       </tbody>
                     </table>
-
-                    {{-- Tổng tiền --}}
-
+                    {{--  Thông tin tính tiền--}}                    
                     <div class="bg-white w-1/4 ml-3 p-3">
                       <div class="w-full">
-                          <div class="mb-3">
-                            <p class="text-xl mb-4">Thông tin đơn hàng</p>        
-                            @foreach ($id as $v)
-                                <p>. {{$v->p_name}} </p>
-                            @endforeach
-                          </div>
+                          <div class="mb-3 w-full">
+                            <p class="text-xl mb-4">Thông tin đơn hàng</p>
+                            <div class="w-full">
+                              <div class="flex p-1">
+                                  <div class="w-1/2">
+                                      <p>Tên sản phẩm:</p>
+                                  </div>
+                              </div>
+                              @foreach ($id as $v)
+                              <div class="flex p-1 w-full">
+                                        <div class="flex w-full h-7 justify-between">
+                                          <p class="flex justify-end">{{$v->p_name}}
+                                          <p class="w-1/2 flex justify-end">{{number_format($v->p_prices*$v->p_quantity, 0, ',', '.')}} đ</p>
+                                        </div>
+                              </div> 
+                              @endforeach 
                           <div class="flex p-1  border-solid border-t-2 mb-10">
                               <div class="w-1/2">
                                   <p>Tạm tính:</p>
                               </div>
-                              <div class="flex justify-end w-1/2 pr-5">
+                              <div class="flex justify-end w-1/2">
                                   <?php
                                     $sum = 0;
                                     foreach ($id as $v) {
-                                      $sum = $sum + $v->p_prices;
+                                      $sum = $sum + $v->p_prices*$v->p_quantity;
                                     }
+                                    $sum_money = number_format($sum, 0, ',', '.');
                                   ?>
-                                  <p class="text-xl text-red-600">{{$sum}} đ</p>
+                                  <p class="text-xl text-red-600">{{$sum_money}} đ</p>
                               </div>
                           </div>
           

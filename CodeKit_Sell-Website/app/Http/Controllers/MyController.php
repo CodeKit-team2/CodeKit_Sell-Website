@@ -11,6 +11,28 @@ use App\Models\User;
 
 class MyController extends Controller
 {
+	 //------------------So luong-------------------------------
+	 public function increase($in){
+		$test = DB::table('products')->where('p_id',$in)->select('p_quantity')->get();
+		foreach ($test as $key ) {
+			$test = $key->p_quantity;
+		}
+        $increase = DB::table('products')->where('p_id',$in)->update(['p_quantity' => $test+1]);
+		$id = DB::table('products')->get(); 
+        return view('profile/chitietdonhang', compact('id'));
+  	}
+	public function decrease($de){
+		$test = DB::table('products')->where('p_id',$de)->select('p_quantity')->get();
+		foreach ($test as $key ) {
+			$test = $key->p_quantity;
+		}
+		if ($test > 1) {
+			$decrease = DB::table('products')->where('p_id',$de)->update(['p_quantity' => $test-1]);
+		}
+		$id = DB::table('products')->get(); 
+        return view('profile/chitietdonhang', compact('id'));
+	}
+
 	//------------------Xoa product-----------------------------
 	public function del_product($v){
         $del = DB::table('products')->where('p_id',$v)->delete();
@@ -57,14 +79,18 @@ class MyController extends Controller
 	//------------------------Phí ship-----------------------------------
 	public function ship(Request $request){
     	$data = $request->all();
+		$name = $data['name'];
+		$phone = $data['phone'];
 		$matp = $data['city'];
-		$maph = $data['province'];
+		$maqh = $data['province'];
 		$xaid = $data['wards'];
-		$id = DB::table('ship')->where([
-			['matp','=',$matp],
-			['maqh','=',$maqh],
-			['xaid','=',$xaid]
-		])->get();
+		$id = DB::table('address')->update([
+			'ma_tp' => $matp,
+			'ma_qh' => $maqh,
+			'xa_id' => $xaid,
+			'name' => $name,
+			'phone' => $phone
+		]);
 
 		/* DB::table('ship')->insert([
 			'matp' => $matp,

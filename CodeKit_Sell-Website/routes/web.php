@@ -51,3 +51,12 @@ Route::post('/voucher',[MyController::class ,'vouchers'])->name('voucher');
 
 
 Route::post('/chitiet/{v}',[MyController::class ,'del_product'])->name('del_product');
+
+//-------------------Nhap so luong --------------
+Route::post('/increase/{in}',[MyController::class ,'increase'])->name('increase');
+Route::post('/decrease/{de}',[MyController::class ,'decrease'])->name('decrease'); 
+
+
+Route::get('/test',function () {
+    return view('profile/test');
+});
