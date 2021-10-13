@@ -10,7 +10,8 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "livewire/livewire": "^2.6"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -50,9 +51,13 @@
         }
     },
     "config": {
+        "platform-check": false,
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4.0"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

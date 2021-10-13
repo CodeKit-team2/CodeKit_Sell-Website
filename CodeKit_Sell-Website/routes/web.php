@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\MyController;
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,6 @@ use App\Http\Controllers\MyController;
 |
 */
 
-Route::get('/', function () {
-    return view('home/home');
-});
 //------------------Xem lich su don hang--------------------
 Route::get('/lichsu',[MyController::class ,'lichsudonhang'])->name('lichsu');
 
@@ -60,3 +58,26 @@ Route::post('/decrease/{de}',[MyController::class ,'decrease'])->name('decrease'
 Route::get('/test',function () {
     return view('profile/test');
 });
+
+
+//-----------------Thai_branch----------------------
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::get('/signin', function () {
+    return view('signin');
+})->name('signin');
+
+Route::get('/signup', function () {
+    return view('signup');
+})->name('signup');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+
+Route::get('/shop', [ShopController::class, 'Shop'])->name('shop');
+Route::get('/product/{id}', [ShopController::class, 'getProduct'])->name('product');
+Route::post('/product/add/{v}', [ShopController::class, 'add_cart'])->name('add_cart');

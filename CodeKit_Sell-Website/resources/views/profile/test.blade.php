@@ -15,32 +15,25 @@
     <link rel="stylesheet" href="{{asset('css/notify.css')}}">
     <title>Document</title>
 </head>
-<body>
-    <div>
-        <div id="toast"></div>     
-        <div>
-          <div class="showSuccessToast btn btn--success">Show success toast</div>
-          <div class="showErrorToast btn btn--danger">Show error toast</div>
+<body class="relative">
+  <div class="flex absolute inset-72">
+    <div class="m-auto">
+    <div class="bg-white rounded-lg border-gray-300 border p-3 shadow-lg">
+        <div class="flex flex-row border-b-2 mb-6 p-2">
+          <div class="px-2">
+              <svg width="24" height="24" viewBox="0 0 1792 1792" fill="#44C997" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1299 813l-422 422q-19 19-45 19t-45-19l-294-294q-19-19-19-45t19-45l102-102q19-19 45-19t45 19l147 147 275-275q19-19 45-19t45 19l102 102q19 19 19 45t-19 45zm141 83q0-148-73-273t-198-198-273-73-273 73-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273zm224 0q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>
+              </svg>
+          </div>
+          <div class="ml-2 mr-6">
+              <span class="font-semibold">Đặt hàng thành công!</span>
+          </div>
         </div>
-        
-        <script>
-            $('.showSuccessToast').click(function () { 
-              toast({
-              title: "Thành công!",
-              message: "Bạn đã đăng ký thành công tài khoản tại F8.",
-              type: "success",
-              duration: 5000
-            });
-            });
-            $('.showSuccessToast').click(function () { 
-                toast({
-              title: "Thất bại!",
-              message: "Có lỗi xảy ra, vui lòng liên hệ quản trị viên.",
-              type: "error",
-              duration: 5000
-                });
-            });        
-            </script>
+        <form action="{{route('shop')}}" method="POST">
+          <button type="submit" class="font-semibold h-28 bg-blue-600">Tiếp tục mua sắm</span>
+        </form>
     </div>
+    </div>
+</div>
 </body>
 </html>
