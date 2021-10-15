@@ -10,14 +10,8 @@
     <title>Alo</title>
 </head>
 <body class="bg-gray-100 font-semibold text-gray-800">
-  <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Giỏ hàng') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
+  @include('layouts.navigation') 
+    <div class="pt-12 mb-15">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden">
                   <div class="flex justify-center bg-gray-100">
@@ -119,9 +113,7 @@
             </div>
         </div>
     </div>
-</x-app-layout>
-<x-welcome.footer>
-
-</x-welcome.footer>
+  </div>
+<div class="mt-20 w-full"><x-welcome.footer></x-welcome.footer></div>
 </body>
 </html>

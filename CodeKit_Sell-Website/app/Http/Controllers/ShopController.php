@@ -33,12 +33,28 @@ class ShopController extends Controller
 
     //--------Hiển thị sp---------------------//
 
-    public function Shop() {
-        $id = DB::table('products_admin')->get();
-        return view('shop',compact('id'));
+    public function shoes() {
+        $id = DB::table('products_admin')->where('pa_type', "shoe")->get();
+        return view('show_shop/shoe_shop',compact('id'));
+    }
+    public function shirt() {
+        $id = DB::table('products_admin')->where('pa_type', "shirt")->get();
+        return view('show_shop/shirt_shop',compact('id'));
+    }
+    public function jean() {
+        $id = DB::table('products_admin')->where('pa_type', "jean")->get();
+        return view('show_shop/jean_shop',compact('id'));
+    }
+    public function handbag() {
+        $id = DB::table('products_admin')->where('pa_type', "handbag")->get();
+        return view('show_shop/handbag_shop',compact('id'));
     }
     public function getProduct($id) {
-        $item = DB::table('products_admin')->where('pa_id',$id)->get();
-        return view('components.shop.product-page',compact('item'));
+        $item = DB::table('products_admin')->where('pa_id',$id)->get();      
+        $id = DB::select('SELECT * FROM products_admin
+                            ORDER BY RAND()
+                            LIMIT 8'
+                        );
+        return view('components.shop.product-page',compact('item','id'));
     }
 }

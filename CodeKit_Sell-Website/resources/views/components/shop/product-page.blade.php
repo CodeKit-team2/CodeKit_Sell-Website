@@ -6,19 +6,18 @@
     </x-slot>
     <div class="mb:mx-3 sm:mx-6 md:mx-20 xl:mx-auto max-w-screen-xl my-16  w-auto bg-white h-auto border">
         <div class="mx-auto xl:flex xl:flex-wrap shadow-xl mb-20">
-            <div class="mb:w-full xl:w-1/2 border-r-4">
+            <div class="mb:w-full w-1/3 border-r-4">
                 {{-- Ảnh sp --}}
-                <img class="" src="{{ URL::to('/assets/img/converse.jpg') }}">
-            </div>
-            <div class="mb:w-full xl:w-1/2 p-5 relative">
-                {{-- Thông tin sản phẩm --}}
                 @foreach ($item as $v)
+                <img class="h-full"  src="{{ URL::to('/images/products/'.$v->pa_images) }}">
+            </div>
+            <div class="mb:w-full xl:w-2/3 p-5 relative">
+                {{-- Thông tin sản phẩm --}}
                     {{-- <x-shop.single-prodInfo></x-shop.single-prodInfo> --}}
                     
                    {{--  Noti suscess --}}
-                    
                     @if (Session::has('success'))
-                        <div class="flex absolute top-6 right-6">
+                        <div class="flex absolute top-6 right-6 animate-bounce">
                             <div class="m-auto">
                             <div class="bg-white rounded-lg border-gray-300 border p-3 shadow-lg">
                                 <div class="flex flex-row">
@@ -55,7 +54,7 @@
                     @endif
                     <p class="mb:hidden xl:block font-bold uppercase mb-2 text-2xl">{{$v->pa_name}}</p>
                     <img class="h-8 ml-4" src="{{ URL::to('/images/icons/Picture1.jpg') }}" alt="">
-                    <p class="p-3 xl:p-6 text-xl font-light">{{$v->pa_discrible}}đ</p>
+                    <p class="p-3 xl:p-6 text-xl font-light">{{$v->pa_discrible}}</p>
                     <hr>
                     <p class="p-3 xl:p-6 font-bold text-3xl text-indigo-600">
                         <?php
@@ -66,22 +65,33 @@
                     {{-- Phần chọn mua của khách --}}
                 @endforeach
                 
-                <form action="{{route('add_cart',$v->pa_id)}}" method="POST" class="absolute bottom-10 w-full">
+                <form action="{{route('add_cart',$v->pa_id)}}" method="POST" class="w-full">
                     @csrf
                     {{-- Chọn màu --}}
                     <hr>
                     <div class="flex justify-between">
                         {{-- Chọn size --}}
                         <p class="p-3 xl:p-6 text-xl mr-4">Size:
+                            @if ($v->pa_type == "shoe")
+                            <select class="text-indigo-600 border-indigo-600 text-xl mr-20" id="" name="size">
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                            </select>
+                            @else
                             <select class="text-indigo-600 border-indigo-600 text-xl mr-20" id="" name="size">
                                 <option value="S">S</option>
                                 <option value="M">M</option>
                                 <option value="L">L</option>
                                 <option value="XL">XL</option>
                             </select>
+                            @endif
                         </p>
                         {{-- Nút đặt hàng --}}
-                        <div class="w-1/3 mt-3 mx-auto xl:mt-6">
+                        <div class="w-1/3 mt-3 mx-auto xl:mt-6 absolute bottom-10 right-10  ">
                                 <button type="submit" class="w-full h-10 border text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-white" type="button">Add to cart</button>
                         </div>
                     </div>                
@@ -89,7 +99,7 @@
             </div>
         </div>
         {{-- Phần gợi ý sản phẩm --}}
-        <x-shop.suggest></x-shop.suggest>
+        <x-shop.suggest :id="$id"></x-shop.suggest>
     </div>
 </x-app-layout>
 <x-welcome.footer>

@@ -116,6 +116,12 @@ class MyController extends Controller
 		}
 	}
 
+	public function complete(){
+		DB::table('products')->delete();
+		$id = DB::table('products_admin')->where('pa_type', "shoe")->get();
+        return view('show_shop/shoe_shop',compact('id'));
+	}
+
 
 
 }

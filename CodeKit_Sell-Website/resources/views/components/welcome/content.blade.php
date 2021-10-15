@@ -1,3 +1,1 @@
-<div>
-    This is Welcome's content.
-</div>
+<x-welcome.carousel></x-welcome.carousel>

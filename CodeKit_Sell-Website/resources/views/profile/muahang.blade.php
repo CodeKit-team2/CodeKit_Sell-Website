@@ -106,20 +106,34 @@
                         type: "success",
                         duration: 5000
                     });
+                     //----------Xoa san pham trong gio hang-----------------//
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                    url : '{{route('complete')}}',
+                    method: 'POST',
+                    data: {
+
+                        _token:_token
+                    },
+                    success:function(data){
+                        //alert('Thành công');    
+                    }
+                    });
+
+                    //-------------Quay lai trang chu-------------------------
                     setTimeout(function(){
-                        window.location.href = 'http://127.0.0.1:8000/shop';
+                        window.location.href = 'http://127.0.0.1:8000/shoe-shop';
                     }, 3000);
-                } else {
+
+                    } else {
                     toast({
                         title: "Thất bại!",
                         message: "Bạn chưa nhập thông tin.",
                         type: "error",
-                        duration: 5000
-                    });
-
-                } 
+                        duration: 5000                  
+                    }); 
+                    } 
             });
-                    
         });
     </script>
     <title>Document</title>
@@ -357,7 +371,7 @@
                 </div>
 
                 <div class="w-full flex justify-center">
-                    <button type="button" class="bg-red-400 rounded-md w-2/3 h-11 shopping"><p class="text-white">Đặt hàng</p></button>
+                    <button type="submit" class="bg-red-400 rounded-md w-2/3 h-11 shopping"><p class="text-white">Đặt hàng</p></button>
                 </div>
             </div>
         </div>

@@ -78,6 +78,19 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
-Route::get('/shop', [ShopController::class, 'Shop'])->name('shop');
+//----------------------show_shop----------------------------------------
+Route::get('/jean-shop', [ShopController::class, 'jean'])->name('jean');
+Route::get('/shirt-shop', [ShopController::class, 'shirt'])->name('shirt');
+Route::get('/handbag-shop', [ShopController::class, 'handbag'])->name('handbag');
+Route::get('/shoe-shop', [ShopController::class, 'shoes'])->name('shoes');
+
+//------------------------suggest-------------------------------------
+
+
 Route::get('/product/{id}', [ShopController::class, 'getProduct'])->name('product');
 Route::post('/product/add/{v}', [ShopController::class, 'add_cart'])->name('add_cart');
+
+
+//--------------------------complete---------------------------------------
+
+Route::post('/complete', [MyController::class, 'complete'])->name('complete');
