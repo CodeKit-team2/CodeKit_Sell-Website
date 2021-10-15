@@ -22,7 +22,6 @@
                 </div>
             </div>
         @endforeach
-
     </div>
 </x-app-layout>
 <x-welcome.footer>
