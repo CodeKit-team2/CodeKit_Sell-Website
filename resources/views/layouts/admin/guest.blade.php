@@ -24,7 +24,7 @@
         <header class="h-16 w-full px-10 bg-blue-500 fixed select-none">
             <div class="h-full flex justify-between items-center">
                 <a href="" class="">
-                    LOGO
+                    <img class="w-12 h-12" src="{{ asset('img/logo.png') }}" alt="Logo">
                 </a>
 
                 {{ $redirect }}
