@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Category;
 use App\Models\Customer;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,7 +16,7 @@ class CategoryData extends Component
     /**
      * @var mixed
      */
-    public $sortField = 'name';
+    public $sortField = 'type';
     /**
      * @var mixed
      */
@@ -26,28 +27,32 @@ class CategoryData extends Component
         'sortDirection'
     ];
 
-    public function mount() {
+    public function mount()
+    {
         $this->entry = 10;
     }
 
-    public function sortBy($field) {
+    public function sortBy($field)
+    {
 
-        if($this->sortField === $field) {
+        if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        }
-        else {
+        } else {
             $this->sortDirection = 'asc';
         }
 
         $this->sortField = $field;
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         Customer::find($id)->delete();
     }
 
     public function render()
     {
-        return view('livewire.admin.category-data');
+        return view('livewire.admin.category-data', [
+            'categories' => Category::search('type', $this->search)->orderBy($this->sortField, $this->sortDirection)->paginate($this->entry)
+        ]);
     }
 }

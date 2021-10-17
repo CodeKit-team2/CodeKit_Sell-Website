@@ -36,28 +36,18 @@
         <div class="w-full overflow-auto bg-white xl:overflow-x-hidden z-10 rounded-2xl shadow-xl">
             <x-admin.table>
                 <x-slot name="heading">
-                    <x-admin.table.heading wire:click="sortBy('username')" :direction="$sortField === 'username' ? $sortDirection : null" sortable>USERNAME</x-admin.table.heading>
-                    <x-admin.table.heading wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null" sortable>NAME</x-admin.table.heading>
-                    <x-admin.table.heading wire:click="sortBy('gender')" :direction="$sortField === 'gender' ? $sortDirection : null" sortable>GENDER</x-admin.table.heading>
-                    <x-admin.table.heading>Email</x-admin.table.heading>
-                    <x-admin.table.heading>Phone</x-admin.table.heading>
-                    <x-admin.table.heading wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null"  sortable>Register Time</x-admin.table.heading>
+                    <x-admin.table.heading wire:click="sortBy('type')" :direction="$sortField === 'type' ? $sortDirection : null" sortable>TYPE</x-admin.table.heading>
+                    
                     <x-admin.table.heading></x-admin.table.heading>
                 </x-slot>
 
                 <x-slot name="body">
 
-                    @forelse ($customers as $customer)
+                    @forelse ($categories as $category)
 
                         <x-admin.table.row wire:loading.class="opacity-50" class="hover:bg-gray-100">
-                            <x-admin.table.cell>{{ $customer->username }}</x-admin.table.cell>
-                            <x-admin.table.cell>{{ $customer->name }}</x-admin.table.cell>
-                            <x-admin.table.cell class="select-none">{{ $customer->gender }}</x-admin.table.cell>
-                            <x-admin.table.cell>{{ $customer->email }}</x-admin.table.cell>
-                            <x-admin.table.cell>{{ $customer->phone_number }}</x-admin.table.cell>
-                            <x-admin.table.cell class="select-none">
-                                {{ $customer->created_at->format('d/m/Y, H:i:s') }}
-                            </x-admin.table.cell>
+                            <x-admin.table.cell>{{ $category->type }}</x-admin.table.cell>
+                            
                             <x-admin.table.cell class="select-none">
                                 <div class="flex justify-center space-x-4">
 
@@ -74,11 +64,11 @@
                                                     <button @click={show=false} class="fill-current h-6 w-6 absolute right-0 top-0 m-6 font-3xl font-bold">&times;</button>
                                                     <div class="w-4/5 px-6 py-3 text-xl text-center border-b font-bold">Warning</div>
                                                     <div class="p-6 flex-grow">
-                                                        <p>Do you want to remove this customer?</p>
+                                                        <p>Do you want to remove this category?</p>
                                                     </div>
                                                     <div class="w-4/5 px-6 py-3 border-t flex space-x-12 justify-center">
                                                         <button @click={show=false} type="button" class="bg-gray-700 text-gray-100 rounded px-4 py-2 mr-1">No</Button>
-                                                        <button wire:click="delete({{ $customer->id }})" @click={show=false} class="bg-red-600 text-gray-200 rounded px-4 py-2">Yes</Button>
+                                                        <button wire:click="delete({{ $category->id }})" @click={show=false} class="bg-red-600 text-gray-200 rounded px-4 py-2">Yes</Button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +95,7 @@
             </x-admin.table>
         </div>
         <div class="select-none">
-            {{ $customers->links() }}
+            {{ $categories->links() }}
         </div>
 
     </div>
